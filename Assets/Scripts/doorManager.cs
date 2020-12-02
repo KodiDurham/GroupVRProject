@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class doorManager : MonoBehaviour
 {
-    public GameObject door; //or animator to call open
+    public Animator door; //or animator to call open
 
+    bool isOpen = false;
 
    public bool[] hasKeys;
 
@@ -43,5 +44,8 @@ public class doorManager : MonoBehaviour
     public void openDoor()
     {
         Debug.Log("OPEN DOOR!!!");
+        if(!isOpen)
+            door.SetBool("open", true);
+        isOpen = true;
     }
 }

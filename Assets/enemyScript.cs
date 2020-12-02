@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
 using UnityEngine.AI;
+using TMPro;
 
 public class enemyScript : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -126,6 +127,9 @@ public class enemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     void die()
     {
+        GameObject popUp =PhotonNetwork.Instantiate("popUpScore", this.transform.position+new Vector3(0,.05f,0),this.transform.rotation);
+        popUp.GetComponent<TextMeshPro>().text = "+" + score;
+
         manager.enemies.Remove(this);
 
         sManager.addScore(score);

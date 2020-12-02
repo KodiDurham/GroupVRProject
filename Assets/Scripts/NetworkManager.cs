@@ -59,7 +59,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joining room...");
 
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 10;
+        roomOptions.MaxPlayers = 4;
         roomOptions.IsVisible = true;
         roomOptions.IsOpen = true;
 

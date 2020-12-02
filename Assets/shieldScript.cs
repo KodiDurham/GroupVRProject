@@ -39,6 +39,10 @@ public class shieldScript : MonoBehaviourPunCallbacks, IPunObservable
         {
             this.GetComponent<Rigidbody>().useGravity = true;
         }
+        if (isInZone)
+        {
+            this.GetComponent<Rigidbody>().useGravity = false;
+        }
     }
 
 
