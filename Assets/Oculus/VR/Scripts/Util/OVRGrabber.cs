@@ -47,7 +47,7 @@ public class OVRGrabber : MonoBehaviour
     // Child/attached transforms of the grabber, indicating where to snap held objects to (if you snap them).
     // Also used for ranking grab targets in case of multiple candidates.
     [SerializeField]
-    protected Transform m_gripTransform = null;
+    public Transform m_gripTransform = null;
     // Child/attached Colliders to detect candidate grabbable objects.
     [SerializeField]
     protected Collider[] m_grabVolumes = null;
@@ -56,14 +56,19 @@ public class OVRGrabber : MonoBehaviour
     [SerializeField]
     protected OVRInput.Controller m_controller;
 
+    public OVRInput.Controller GetController()
+    {
+        return m_controller;
+    }
+
 	// You can set this explicitly in the inspector if you're using m_moveHandPosition.
 	// Otherwise, you should typically leave this null and simply parent the hand to the hand anchor
 	// in your scene, using Unity's inspector.
     [SerializeField]
-    protected Transform m_parentTransform;
+    public Transform m_parentTransform;
 
     [SerializeField]
-    protected GameObject m_player;
+    public GameObject m_player;
 
 	protected bool m_grabVolumeEnabled = true;
     protected Vector3 m_lastPos;
@@ -327,6 +332,23 @@ public class OVRGrabber : MonoBehaviour
         {
             return;
         }
+
+        m_grabbedObjectPosOff = m_gripTransform.localPosition;
+
+        if (m_grabbedObj.snapOffset)
+        {
+            Vector3 snapOffset = m_grabbedObj.snapOffset.position;
+            if (m_controller == OVRInput.Controller.LTouch) snapOffset.x = -snapOffset.x;
+            m_grabbedObjectPosOff += snapOffset;
+        }
+
+        m_grabbedObjectRotOff = m_gripTransform.localRotation;
+        if (m_grabbedObj.snapOffset)
+        {
+            m_grabbedObjectRotOff = m_grabbedObj.snapOffset.rotation * m_grabbedObjectRotOff;
+            if(m_controller == OVRInput.Controller.LTouch) m_grabbedObjectRotOff= Quaternion.Inverse(m_grabbedObjectRotOff) * Quaternion.Euler(0,180,0);
+        }
+
 
         Rigidbody grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
         Vector3 grabbablePosition = pos + rot * m_grabbedObjectPosOff;

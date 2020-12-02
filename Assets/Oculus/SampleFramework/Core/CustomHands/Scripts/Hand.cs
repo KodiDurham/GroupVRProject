@@ -181,7 +181,7 @@ namespace OVRTouchSample
             return Mathf.Clamp01(value + rateDelta * sign);
         }
 
-        private void UpdateAnimStates()
+        public void UpdateAnimStates()
         {
             bool grabbing = m_grabber.grabbedObject != null;
             HandPose grabPose = m_defaultGrabPose;

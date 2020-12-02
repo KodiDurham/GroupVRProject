@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Grabbable
+  - Equipment
+  - Shield
+  - Enemy
+  - Player
+  - Trigger
   - 
   - 
   - 
